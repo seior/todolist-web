@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"todolist/handler"
+	"todolist/middleware"
 )
 
 func main() {
@@ -24,9 +25,13 @@ func runRouter() {
 
 	mutex.HandleFunc("/todolist/delete", handler.TodolistHandlerDeleteTodolist)
 
+	errorMiddleware := middleware.ErrorMiddleware{
+		Handler: mutex,
+	}
+
 	server := http.Server{
 		Addr: ":8080",
-		Handler: mutex,
+		Handler: errorMiddleware,
 	}
 
 	err := server.ListenAndServe()
