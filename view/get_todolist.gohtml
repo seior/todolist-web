@@ -1,0 +1,16 @@
+{{ template "header" . }}
+
+<h3>Todolist :</h3><br>
+<ul>
+    {{ range $index, $element := .Todolist }}
+        <li>
+            <p>Todolist : {{ $element.Name }}</p>
+            <p>Author : {{ $element.Author }}</p>
+            <a href="/todolist/delete?id={{ $element.Id }}">delete</a>
+        </li>
+    {{ end }}
+</ul>
+
+<a href="/">back</a>
+
+{{ template "footer" }}
